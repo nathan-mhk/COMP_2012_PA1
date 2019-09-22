@@ -24,7 +24,7 @@ WorkoutEnvironment::WorkoutEnvironment(string name, int entry_fee, int MAX_NUM_O
 	current_num_of_participants(0) {}
 
 WorkoutEnvironment::~WorkoutEnvironment(void) {
-	//TODO
+	//TODO Debug
 	//Not that simple
 	delete [] available_workouts;
 	delete [] participants;
