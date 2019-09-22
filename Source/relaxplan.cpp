@@ -30,11 +30,7 @@ RelaxPlan::RelaxPlan(RelaxPlan const & rp): name(rp.name) {
     }
 }
 
-//Constructor
-RelaxPlan::RelaxPlan(string name) {
-	this->name = name;
-	this->head = NULL;
-}
+RelaxPlan::RelaxPlan(string name): name(name), head(NULL) {}
 
 RelaxPlan::~RelaxPlan(void) {
 	Relaxation* current = this->head;
@@ -48,7 +44,7 @@ RelaxPlan::~RelaxPlan(void) {
 }
 
 Relaxation* RelaxPlan::get_head(void) const {
-	return this->head;
+	return head;
 }
 
 void RelaxPlan::addToStart(Relaxation r) {
@@ -62,14 +58,13 @@ void RelaxPlan::addToEnd(Relaxation r) {
 	Relaxation* newRelax = new Relaxation(r);
 	if (!this->head) {
 		//this->addToStart(r);
-		newRelax->set_next(this->head);
+		newRelax->set_next(this->head);	//newRelax->next = NULL
 		this->head = newRelax;
 
 	} else {
 		Relaxation* end = this->head;
 
 		while (end->get_next()) {
-		//while (end->get_next() != NULL) {
 			end = end->get_next();
 		}
 

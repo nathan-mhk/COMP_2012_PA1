@@ -9,18 +9,24 @@
 #include "restaurant.h"
 
 Restaurant::Restaurant(string name): name(name) {
-	this->list_start_index = 0;
-	this->curr_num_of_meals = 0;
-	this->list_end_index = 4;
+	list_start_index = 0;
+	list_end_index = 4;
+	curr_num_of_meals = 0;
 }
 
 string Restaurant::get_name(void) const {
-	return this->name;
+	return name;
 }
 
 bool Restaurant::add_meal(Food food) {
-
-	return true;
+	if (curr_num_of_meals == 4) {
+		return false;
+	} else {
+		meals_list[curr_num_of_meals] = food;
+		list_end_index = curr_num_of_meals;
+		curr_num_of_meals++;
+		return true;
+	}
 }
 
 bool Restaurant::remove_first_meal(void) {

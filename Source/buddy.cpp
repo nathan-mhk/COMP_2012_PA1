@@ -8,32 +8,26 @@
 
 #include "buddy.h"
 
-Buddy::Buddy(string name, int fat, int muscle, int energy, int money) {
-	this->name = name;
-	this->fat = fat;
-	this->muscle = muscle;
-	set_energy(energy);
-	set_money(money);
-}
+Buddy::Buddy(string name, int fat, int muscle, int energy, int money): name(name), fat(fat), muscle(muscle), energy(energy), money(money) {}
 
 string Buddy::get_name(void) const {
-	return this->name;
+	return name;
 }
 
 int Buddy::get_fat(void) const {
-	return this->fat;
+	return fat;
 }
 
 int Buddy::get_muscle(void) const {
-	return this->muscle;
+	return muscle;
 }
 
 int Buddy::get_energy(void) const {
-	return this->energy;
+	return energy;
 }
 
 int Buddy::get_money(void) const {
-	return this->money;
+	return money;
 }
 
 void Buddy::set_fat(int fat) {

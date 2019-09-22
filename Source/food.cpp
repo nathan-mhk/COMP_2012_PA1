@@ -8,25 +8,20 @@
 
 #include "food.h"
 
-Food::Food(string name, int fat_gain, int protein_gain, int price) {
-	this->name = name;
-	this->fat_gain = fat_gain;
-	this->protein_gain = protein_gain;
-	this->price = price;
-}
+Food::Food(string name, int fat_gain, int protein_gain, int price): name(name), fat_gain(fat_gain), protein_gain(protein_gain), price(price) {}
 
 int Food::get_fat_gain(void) const {
-	return this->fat_gain;
+	return fat_gain;
 }
 
 string Food::get_name(void) const {
-	return this->name;
+	return name;
 }
 
 int Food::get_price(void) const {
-	return this->price;
+	return price;
 }
 
 int Food::get_protein_gain(void) const {
-	return this->protein_gain;
+	return protein_gain;
 }

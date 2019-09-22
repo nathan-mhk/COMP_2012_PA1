@@ -8,25 +8,20 @@
 
 #include "workout.h"
 
-Workout::Workout(string name, int fat_change, int muscle_change, int energy_change) {
-		this->name = name;
-		this->fat_change = fat_change;
-		this->muscle_change = muscle_change;
-		this->energy_change = energy_change;
-}
+Workout::Workout(string name, int fat_change, int muscle_change, int energy_change): name(name), fat_change(fat_change), muscle_change(muscle_change), energy_change(energy_change) {}
 
 string Workout::get_name(void) const {
-	return this->name;
+	return name;
 }
 
 int Workout::get_fat_change(void) const {
-	return this->fat_change;
+	return fat_change;
 }
 
 int Workout::get_muscle_change(void) const {
-	return this->muscle_change;
+	return muscle_change;
 }
 
 int Workout::get_energy_change(void) const {
-	return this->energy_change;
+	return energy_change;
 }
