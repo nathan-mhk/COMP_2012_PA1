@@ -30,7 +30,9 @@ RelaxPlan::RelaxPlan(RelaxPlan const & rp): name(rp.name) {
     }
 }
 
-RelaxPlan::RelaxPlan(string name): name(name), head(NULL) {}
+RelaxPlan::RelaxPlan(string name):
+	name(name),
+	head(NULL) {}
 
 RelaxPlan::~RelaxPlan(void) {
 	Relaxation* current = this->head;

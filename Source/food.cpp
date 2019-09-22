@@ -8,7 +8,11 @@
 
 #include "food.h"
 
-Food::Food(string name, int fat_gain, int protein_gain, int price): name(name), fat_gain(fat_gain), protein_gain(protein_gain), price(price) {}
+Food::Food(string name, int fat_gain, int protein_gain, int price):
+	name(name),
+	fat_gain(fat_gain),
+	protein_gain(protein_gain),
+	price(price) {}
 
 int Food::get_fat_gain(void) const {
 	return fat_gain;

@@ -8,7 +8,10 @@
 
 #include "relaxation.h"
 
-Relaxation::Relaxation(string name, int energy_gain): name(name), energy_gain(energy_gain), next(NULL) {}
+Relaxation::Relaxation(string name, int energy_gain):
+	name(name),
+	energy_gain(energy_gain),
+	next(NULL) {}
 
 string Relaxation::get_name(void) const {
 	return this->name;

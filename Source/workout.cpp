@@ -8,7 +8,11 @@
 
 #include "workout.h"
 
-Workout::Workout(string name, int fat_change, int muscle_change, int energy_change): name(name), fat_change(fat_change), muscle_change(muscle_change), energy_change(energy_change) {}
+Workout::Workout(string name, int fat_change, int muscle_change, int energy_change):
+	name(name),
+	fat_change(fat_change),
+	muscle_change(muscle_change),
+	energy_change(energy_change) {}
 
 string Workout::get_name(void) const {
 	return name;

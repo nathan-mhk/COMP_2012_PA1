@@ -8,7 +8,11 @@
 
 #include "restaurant.h"
 
-Restaurant::Restaurant(string name): name(name), list_start_index(0), list_end_index(4), curr_num_of_meals(0) {}
+Restaurant::Restaurant(string name):
+	name(name),
+	list_start_index(0),
+	list_end_index(4),
+	curr_num_of_meals(0) {}
 
 string Restaurant::get_name(void) const {
 	return name;

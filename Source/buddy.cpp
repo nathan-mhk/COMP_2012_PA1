@@ -8,7 +8,12 @@
 
 #include "buddy.h"
 
-Buddy::Buddy(string name, int fat, int muscle, int energy, int money): name(name), fat(fat), muscle(muscle), energy(energy), money(money) {}
+Buddy::Buddy(string name, int fat, int muscle, int energy, int money):
+	name(name),
+	fat(fat),
+	muscle(muscle),
+	energy(energy),
+	money(money) {}
 
 string Buddy::get_name(void) const {
 	return name;
@@ -51,5 +56,13 @@ void Buddy::earn_money(int money, int times) {
 }
 
 void Buddy::gain_energy(RelaxPlan plan) {
-	//TODO
+	Relaxation* activity = plan.get_head();
+	if (activity) {
+		int totalEnergyGained = activity->get_energy_gain();
+		while (activity->get_next()) {
+			activity = activity->get_next();
+			totalEnergyGained += activity->get_energy_gain();
+		}
+		this->set_energy(totalEnergyGained);
+	}
 }
