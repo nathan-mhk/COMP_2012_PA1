@@ -8,33 +8,37 @@
 
 #include "restaurant.h"
 
-Restaurant::Restaurant(string name): name(name) {
-	list_start_index = 0;
-	list_end_index = 4;
-	curr_num_of_meals = 0;
-}
+Restaurant::Restaurant(string name): name(name), list_start_index(0), list_end_index(4), curr_num_of_meals(0) {}
 
 string Restaurant::get_name(void) const {
 	return name;
 }
 
 bool Restaurant::add_meal(Food food) {
-	if (curr_num_of_meals == 4) {
+	if (this->curr_num_of_meals == 5) {
 		return false;
 	} else {
-		meals_list[curr_num_of_meals] = food;
-		list_end_index = curr_num_of_meals;
-		curr_num_of_meals++;
+		this->list_end_index = (this->list_end_index + 1) % 5;
+		this->meals_list[this->list_end_index] = food;
+		this->curr_num_of_meals++;
 		return true;
 	}
 }
 
 bool Restaurant::remove_first_meal(void) {
-	return true;
+	if (!this->curr_num_of_meals) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
 bool Restaurant::remove_last_meal(void) {
-	return true;
+	if (!this->curr_num_of_meals) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
 bool Restaurant::serve_meal(Buddy* buddy, int meal_index) const {
