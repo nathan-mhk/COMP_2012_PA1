@@ -40,7 +40,7 @@ RelaxPlan::~RelaxPlan(void) {
 	Relaxation* current = this->head;
 	Relaxation* next;
 
-	while (!current) {
+	while (current) {
 		next = current->get_next();
 		delete current;
 		current = next;
@@ -68,7 +68,8 @@ void RelaxPlan::addToEnd(Relaxation r) {
 	} else {
 		Relaxation* end = this->head;
 
-		while (!end) {
+		while (end->get_next()) {
+		//while (end->get_next() != NULL) {
 			end = end->get_next();
 		}
 
@@ -82,7 +83,7 @@ bool RelaxPlan::remove(int remove_index) {
 	Relaxation* previous = current;
 	//Transverse time
 	for (int i = 0; i < remove_index; ++i) {
-		if (!current->get_next()) {
+		if (current->get_next()) {
 			current = current->get_next();
 			if (i) {
 				previous = previous->get_next();
@@ -93,8 +94,7 @@ bool RelaxPlan::remove(int remove_index) {
 		}
 	}
 
-	Relaxation* next = current;
-	next = current->get_next();
+	Relaxation* next = current->get_next();
 
 	if (previous == current) {
 		this->head = next;
