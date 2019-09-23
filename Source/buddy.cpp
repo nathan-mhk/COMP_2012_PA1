@@ -58,7 +58,7 @@ void Buddy::earn_money(int money, int times) {
 void Buddy::gain_energy(RelaxPlan plan) {
 	Relaxation* activity = plan.get_head();
 	if (activity) {
-		int totalEnergyGained = activity->get_energy_gain();
+		int totalEnergyGained = activity->get_energy_gain() + this->get_energy();
 		while (activity->get_next()) {
 			activity = activity->get_next();
 			totalEnergyGained += activity->get_energy_gain();

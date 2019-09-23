@@ -17,7 +17,7 @@ Restaurant::Restaurant(string name):
 string Restaurant::get_name(void) const {
 	return name;
 }
-
+//TODO fix
 bool Restaurant::add_meal(Food food) {
 	if (this->curr_num_of_meals == 5) {
 		return false;

@@ -76,31 +76,35 @@ void RelaxPlan::addToEnd(Relaxation r) {
 }
 
 bool RelaxPlan::remove(int remove_index) {
-	Relaxation* current = this->head;
-	Relaxation* previous = current;
-	//Transverse time
-	for (int i = 0; i < remove_index; ++i) {
-		if (current->get_next()) {
-			current = current->get_next();
-			if (i) {
-				previous = previous->get_next();
+	if (remove_index >= 0) {
+		Relaxation* current = this->head;
+		Relaxation* previous = current;
+		//Transverse time
+		for (int i = 0; i < remove_index; ++i) {
+			if (current->get_next()) {
+				current = current->get_next();
+				if (i) {
+					previous = previous->get_next();
+				}
+
+			} else {
+				return false;
 			}
-
-		} else {
-			return false;
 		}
-	}
 
-	Relaxation* next = current->get_next();
+		Relaxation* next = current->get_next();
 
-	if (previous == current) {
-		this->head = next;
+		if (previous == current) {
+			this->head = next;
+		} else {
+			previous->set_next(next);
+		}
+		current->set_next(NULL);
+		delete current;
+		return true;
 	} else {
-		previous->set_next(next);
+		return false;
 	}
-	current->set_next(NULL);
-	delete current;
-	return true;
 }
 
 

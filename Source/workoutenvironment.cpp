@@ -8,12 +8,6 @@
 
 #include "workoutenvironment.h"
 
-/*
- * The functions participant_index &
- * register_participant consider two buddies
- * as the same if and only if they have the same address
- */
-
 WorkoutEnvironment::WorkoutEnvironment(string name, int entry_fee, int MAX_NUM_OF_WORKOUTS):
 	name(name),
 	entry_fee(entry_fee),
@@ -28,7 +22,7 @@ WorkoutEnvironment::~WorkoutEnvironment(void) {
 	//Not that simple
 	delete [] available_workouts;
 	delete [] participants;
-	available_workouts = NULL;
+	//available_workouts = NULL;
 	participants = NULL;
 }
 
@@ -41,15 +35,45 @@ int WorkoutEnvironment::get_entry_fee(void) const {
 }
 
 bool WorkoutEnvironment::add_workout(const Workout& workout, int add_index) {
-	return true;
+	if ((add_index >= 0) &&
+		(add_index <= this->current_num_of_workouts) &&
+		(this->current_num_of_workouts < this->MAX_NUM_OF_WORKOUTS)) {
+
+		for (int i = this->current_num_of_workouts; i > add_index; --i) {
+			this->available_workouts[i] = this->available_workouts[i - 1];
+		}
+
+		this->available_workouts[add_index] = workout;
+		++this->current_num_of_workouts;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 bool WorkoutEnvironment::remove_workout(int remove_index) {
-	return true;
+	if ((remove_index >= 0) &&
+		(remove_index < this->current_num_of_workouts) &&
+		(this->current_num_of_workouts > 0)) {
+
+		for (int i = remove_index; i < this->current_num_of_workouts - 2; ++i) {
+			this->available_workouts[i] = this->available_workouts[i + 1];
+		}
+
+		--this->current_num_of_workouts;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 int WorkoutEnvironment::participant_index(const Buddy* buddy) const {
-	return 0;
+	for (int i = 0; i < this->current_num_of_participants; ++i) {
+		if (this->participants[i]->get_name() == buddy->get_name()) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 bool WorkoutEnvironment::register_participant(Buddy* buddy) {
@@ -57,5 +81,10 @@ bool WorkoutEnvironment::register_participant(Buddy* buddy) {
 }
 
 bool WorkoutEnvironment::start_workout(int participant_index, int workout_index) const {
+	/*
+	 * The functions participant_index &
+	 * register_participant consider two buddies
+	 * as the same if and only if they have the same address
+	 */
 	return true;
 }
