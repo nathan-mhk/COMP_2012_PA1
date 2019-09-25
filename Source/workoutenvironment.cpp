@@ -69,7 +69,10 @@ bool WorkoutEnvironment::remove_workout(int remove_index) {
 
 int WorkoutEnvironment::participant_index(const Buddy* buddy) const {
 	for (int i = 0; i < this->current_num_of_participants; ++i) {
-		if (this->participants[i]->get_name() == buddy->get_name()) {
+		//TODO
+		//Two buddies are considered the same iff their address is the same
+		//BP here
+		if (this->participants[i] == buddy) {
 			return i;
 		}
 	}
@@ -77,14 +80,57 @@ int WorkoutEnvironment::participant_index(const Buddy* buddy) const {
 }
 
 bool WorkoutEnvironment::register_participant(Buddy* buddy) {
-	return true;
+	if ((this->participant_index(buddy) != -1) && 
+		(buddy->get_money < this->entry_fee)) {
+		return false;
+	} else {
+		buddy->set_money(buddy->get_money - this->entry_fee);
+
+		//1. Create a new double pointer array with length current_#_parti + 1
+		Buddy** parti = new Buddy*[this->current_num_of_participants + 1];
+
+		//2. copy all previous Buddy* to the new array. Only copy the addresses, not the Buddy objects.
+		for (int i = 0; i < this->current_num_of_participants; ++i) {
+			parti[i] = this->participants[i];
+		}
+
+		//3. assign the passed in buddy* to the new array's 'current_num_of_participants' element, this is also copying addresses.
+		parti[this->current_num_of_participants] = buddy;
+
+		//4. delete[] participants, DO NOT delete the pointers to the Buddy objects inside the array. 
+		delete [] this->participants;
+
+		//5. participants = new array, update 'current_num_of_participants'.
+		participants = parti;
+		++this->current_num_of_participants;
+		return true;
+
+	}
 }
 
 bool WorkoutEnvironment::start_workout(int participant_index, int workout_index) const {
-	/*
-	 * The functions participant_index &
-	 * register_participant consider two buddies
-	 * as the same if and only if they have the same address
-	 */
-	return true;
+	if ((participant_index >= 0) && 
+		(participant_index < this->current_num_of_participants) && 
+		(workout_index >= 0) && 
+		(workout_index < this->current_num_of_workouts)) {
+
+		Buddy* buddy = this->participants[participant_index];
+		Workout workout = this->available_workouts[workout_index];
+		int energy = buddy->get_energy + workout.get_energy_change;
+
+		if (energy >= 0) {
+			int fat = buddy->get_fat + workout.get_fat_change;
+			int muscle = buddy->get_muscle + workout.get_muscle_change;
+
+			buddy->set_fat(fat);
+			buddy->set_muscle(muscle);
+			buddy->set_energy(energy);
+			
+		} else {
+			return false;
+		}
+
+	} else {
+		return false;
+	}
 }
