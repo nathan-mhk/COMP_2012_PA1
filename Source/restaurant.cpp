@@ -17,11 +17,14 @@ Restaurant::Restaurant(string name):
 string Restaurant::get_name(void) const {
 	return name;
 }
-//TODO fix
+
 bool Restaurant::add_meal(Food food) {
+	//If full, return false
 	if (this->curr_num_of_meals == 5) {
 		return false;
 	} else {
+		//End index should ALWAYS point at the last meal
+		//Update end index, set food and update #meals
 		this->list_end_index = (this->list_end_index + 1) % 5;
 		this->meals_list[this->list_end_index] = food;
 		++this->curr_num_of_meals;
@@ -30,9 +33,13 @@ bool Restaurant::add_meal(Food food) {
 }
 
 bool Restaurant::remove_first_meal(void) {
+	//If empty, return false
 	if (!curr_num_of_meals) {
 		return false;
 	} else {
+		//Start index should ALWAYS point at the first meal
+		//Reset, update start index and #meals
+		this->meals_list[this->list_start_index] = Food();
 		list_start_index = (list_start_index + 1) % 5;
 		--curr_num_of_meals;
 		return true;
@@ -40,10 +47,15 @@ bool Restaurant::remove_first_meal(void) {
 }
 
 bool Restaurant::remove_last_meal(void) {
+	//If empty, return false
 	if (!curr_num_of_meals) {
 		return false;
 	} else {
-		list_end_index = (list_end_index + 1) % 5;
+		//End index should ALWAYS point at the last meal
+		//Reset, udpate end index and #meals
+//TODO: Sth's wrong with the reset below
+		//this->meals_list[this->list_end_index] = Food();
+		list_end_index = (list_end_index - 1) % 5;
 		--curr_num_of_meals;
 		return true;
 	}
