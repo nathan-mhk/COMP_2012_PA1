@@ -208,7 +208,7 @@ private:
     int list_start_index;
     // The end of the circular array, this index should always be in range [0, 4]
     int list_end_index;
-    // The current number of meals in meals_list. curr_num_of_meals == 0 means empty, curr_num_of_meals == 4 means full
+    // The current number of meals in meals_list. curr_num_of_meals == 0 means empty, curr_num_of_meals == 5 means full
     int curr_num_of_meals;
 };
 

@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <sstream>
 #include "buddy.h"
 #include "workout.h"
 #include "food.h"
@@ -47,11 +48,7 @@ int main() {
         string input_str = "default string";
         cin>>input_str;
         cout<<endl;
-        try {
-            part_to_test = stoi(input_str);
-        } catch (...) {
-            part_to_test = -1;
-        }
+        istringstream(input_str) >> part_to_test;
         switch (part_to_test) {
         case 1:
             test_food();
@@ -392,9 +389,9 @@ void test_restaurant() {
     cout<<"serve_meal:"<<endl<<endl;
     cout<<"Before serving: "<<endl;
     Buddy* b1 = new Buddy("Van", 50, 500, 100, 10000);
-    r.add_meal(f0);
-    r.add_meal(f1);
-    r.add_meal(f2);
+    r.add_meal(f0); //Egg white powder
+    r.add_meal(f1); //Banana
+    r.add_meal(f2); //DCB
     r.print_details(1);
     cout<<endl;
     b1->print_details(1);
@@ -541,5 +538,10 @@ void test_workoutenvironment() {
     we.print_details(2);
     cout<<endl;
 
+    delete b0;
+    delete b1;
+    delete b2;
+    delete b3;
+    delete b4;
     cout<<"------- WorkoutEnvironment Class Completed! -------"<<endl<<endl;
 }

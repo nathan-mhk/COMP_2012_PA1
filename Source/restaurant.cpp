@@ -8,7 +8,7 @@
 
 #include "restaurant.h"
 
-Restaurant::Restaurant(string name):
+Restaurant::Restaurant(string name) :
 	name(name),
 	list_start_index(0),
 	list_end_index(4),
@@ -38,8 +38,7 @@ bool Restaurant::remove_first_meal(void) {
 		return false;
 	} else {
 		//Start index should ALWAYS point at the first meal
-		//Reset, update start index and #meals
-		this->meals_list[this->list_start_index] = Food();
+		//Update start index and #meals
 		list_start_index = (list_start_index + 1) % 5;
 		--curr_num_of_meals;
 		return true;
@@ -52,16 +51,18 @@ bool Restaurant::remove_last_meal(void) {
 		return false;
 	} else {
 		//End index should ALWAYS point at the last meal
-		//Reset, udpate end index and #meals
-//TODO: Sth's wrong with the reset below
-		//this->meals_list[this->list_end_index] = Food();
-		list_end_index = (list_end_index - 1) % 5;
+		//Update end index and #meals
+		list_end_index = (list_end_index + 4) % 5;
 		--curr_num_of_meals;
 		return true;
 	}
 }
 
 bool Restaurant::serve_meal(Buddy* buddy, int meal_index) const {
+	// Assume these are valid:
+	// meal_index
+	// meals_list[meal_index]
+	// buddy
 	Food food = this->meals_list[meal_index];
 	int money = buddy->get_money() - food.get_price();
 

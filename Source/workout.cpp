@@ -8,7 +8,7 @@
 
 #include "workout.h"
 
-Workout::Workout(string name, int fat_change, int muscle_change, int energy_change):
+Workout::Workout(string name, int fat_change, int muscle_change, int energy_change) :
 	name(name),
 	fat_change(fat_change),
 	muscle_change(muscle_change),

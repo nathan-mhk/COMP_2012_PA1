@@ -8,7 +8,7 @@
 
 #include "workoutenvironment.h"
 
-WorkoutEnvironment::WorkoutEnvironment(string name, int entry_fee, int MAX_NUM_OF_WORKOUTS):
+WorkoutEnvironment::WorkoutEnvironment(string name, int entry_fee, int MAX_NUM_OF_WORKOUTS) :
 	name(name),
 	entry_fee(entry_fee),
 	available_workouts(new Workout[MAX_NUM_OF_WORKOUTS]),
@@ -20,7 +20,6 @@ WorkoutEnvironment::WorkoutEnvironment(string name, int entry_fee, int MAX_NUM_O
 WorkoutEnvironment::~WorkoutEnvironment(void) {
 	delete [] available_workouts;
 	delete [] participants;
-	participants = NULL;
 }
 
 string WorkoutEnvironment::get_name(void) const {
@@ -67,9 +66,6 @@ bool WorkoutEnvironment::remove_workout(int remove_index) {
 
 int WorkoutEnvironment::participant_index(const Buddy* buddy) const {
 	for (int i = 0; i < this->current_num_of_participants; ++i) {
-		//TODO test
-		//Two buddies are considered the same iff their address is the same
-		//BP here
 		if (this->participants[i] == buddy) {
 			return i;
 		}
@@ -85,22 +81,23 @@ bool WorkoutEnvironment::register_participant(Buddy* buddy) {
 		buddy->set_money(buddy->get_money() - this->entry_fee);
 
 		//1. Create a new double pointer array with length current_#_parti + 1
-		Buddy** parti = new Buddy*[this->current_num_of_participants + 1];
+		Buddy** members = new Buddy*[this->current_num_of_participants + 1];
 
 		//2. copy all previous Buddy* to the new array. Only copy the addresses, not the Buddy objects.
-		//Won't run the for loop if there's no participants/participants = NULL
+		// ******Won't run the for loop if there's no participants/participants = NULL
 		for (int i = 0; i < this->current_num_of_participants; ++i) {
-			parti[i] = this->participants[i];
+			members[i] = this->participants[i];
 		}
 
 		//3. assign the passed in buddy* to the new array's 'current_num_of_participants' element, this is also copying addresses.
-		parti[this->current_num_of_participants] = buddy;
+		members[this->current_num_of_participants] = buddy;
 
 		//4. delete[] participants, DO NOT delete the pointers to the Buddy objects inside the array. 
+		// *****Will not do anything if participants points at NULL
 		delete [] this->participants;
 
 		//5. participants = new array, update 'current_num_of_participants'.
-		participants = parti;
+		participants = members;
 		++this->current_num_of_participants;
 		return true;
 	}

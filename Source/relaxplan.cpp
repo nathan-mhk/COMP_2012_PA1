@@ -30,7 +30,7 @@ RelaxPlan::RelaxPlan(RelaxPlan const & rp): name(rp.name) {
     }
 }
 
-RelaxPlan::RelaxPlan(string name):
+RelaxPlan::RelaxPlan(string name) :
 	name(name),
 	head(NULL) {}
 
@@ -40,6 +40,7 @@ RelaxPlan::~RelaxPlan(void) {
 
 	while (current) {
 		next = current->get_next();
+		current->set_next(NULL);
 		delete current;
 		current = next;
 	}
@@ -51,16 +52,17 @@ Relaxation* RelaxPlan::get_head(void) const {
 
 void RelaxPlan::addToStart(Relaxation r) {
 	Relaxation* newRelax = new Relaxation(r);
-	newRelax->set_next(this->head);	//newRelax->next = NULL
+	newRelax->set_next(this->head);	// If empty: newRelax->next = NULL
 	this->head = newRelax;
 }
 
 void RelaxPlan::addToEnd(Relaxation r) {
 	//Create a copy
 	Relaxation* newRelax = new Relaxation(r);
+
+	//If head == NULL
 	if (!this->head) {
-		//this->addToStart(r);
-		newRelax->set_next(this->head);	//newRelax->next = NULL
+		newRelax->set_next(this->head);
 		this->head = newRelax;
 
 	} else {
@@ -81,6 +83,7 @@ bool RelaxPlan::remove(int remove_index) {
 		Relaxation* previous = current;
 		//Transverse time
 		for (int i = 0; i < remove_index; ++i) {
+			// If not out of range
 			if (current->get_next()) {
 				current = current->get_next();
 				if (i) {
