@@ -64,7 +64,7 @@ void Buddy::gain_energy(RelaxPlan plan) {
 	if (activity) {
 		int totalEnergyGained = this->get_energy();
 		while (activity) {
-			totalEnergyGained = activity->get_energy_gain();
+			totalEnergyGained += activity->get_energy_gain();
 			activity = activity->get_next();
 		}
 		this->set_energy(totalEnergyGained);
